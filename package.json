@@ -1,0 +1,32 @@
+{
+  "name": "jsspin",
+  "version": "1.0.0",
+  "description": "Spinner for node and iojs",
+  "main": "index.js",
+  "keywords": [
+    "spinner",
+    "node",
+    "js",
+    "spin",
+    "load",
+    "loading",
+    "iojs"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4",
+    "grunt-release": "0.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericholiveira/jsspin.git"
+  },
+  "readmeFilename": "README.md",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "author": {
+    "name": "Erich Oliveira",
+    "url": "http://ericholiveira.com"
+  },
+  "license": "MIT"
+}
