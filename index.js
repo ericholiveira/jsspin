@@ -1,7 +1,14 @@
+var punycode = require('punycode');
+var dChar = 'd'.charCodeAt(0);
+var clockPuny = [];
+for (i=0;i<23;i++){
+  clockPuny.push(punycode.decode(String.fromCharCode(dChar+i)+'x8h'));
+}
+var monkeyPuny = [punycode.decode('9o8h'),punycode.decode('g48h'),punycode.decode('h48h'),punycode.decode('i48h')];
 var spinnerTypes={
   _1    : '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏',
   _2    : '⠋⠙⠚⠞⠖⠦⠴⠲⠳⠓',
-  _3    : '⠄⠆⠇⠋⠙⠸⠰⠠⠰⠸⠙⠋⠇⠆',	
+  _3    : '⠄⠆⠇⠋⠙⠸⠰⠠⠰⠸⠙⠋⠇⠆',
   _4    : '⠋⠙⠚⠒⠂⠂⠒⠲⠴⠦⠖⠒⠐⠐⠒⠓⠋',
   _5    : '⠁⠉⠙⠚⠒⠂⠂⠒⠲⠴⠤⠄⠄⠤⠴⠲⠒⠂⠂⠒⠚⠙⠉⠁',
   _6    : '⠈⠉⠋⠓⠒⠐⠐⠒⠖⠦⠤⠠⠠⠤⠦⠖⠒⠐⠐⠒⠓⠋⠉⠈',
@@ -14,7 +21,9 @@ var spinnerTypes={
   _13   : '▌▄▐▀',
   _14   : '╫╪',
   _15   : '■□▪▫',
-  _16   : '←↑→↓'
+  _16   : '←↑→↓',
+  _17   : clockPuny,
+  _18   : monkeyPuny
 };
 var DEFAULT_TYPE = spinnerTypes._8;
 var DEFAULT_INTERVAL = 400;
@@ -31,6 +40,7 @@ function Spinner(options){
 Spinner.prototype.start = function(){
   var currentId = 0;
   var text = this.text;
+  process.stdout.write('\x1b[?25l');//hide cursor
   process.stdout.write(text[currentId++]);
   this.intervalId = setInterval(function(){
     back();
@@ -43,9 +53,9 @@ Spinner.prototype.stop = function(){
     back();
     process.stdout.write(String.fromCharCode(32));
     back();
+    process.stdout.write('\x1b[?25h');//show cursor
     clearInterval(this.intervalId);
   }
 };
 Spinner.prototype.defaultTexts = spinnerTypes;
 module.exports = Spinner;
-var sp = new Spinner();
